@@ -14,5 +14,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    $signal = request()->input('signal', 'green');
+
+    $order = match ($signal) {
+        'green' => 'Go',
+        'yellow' => 'Caution',
+        'red' => 'Stop',
+        default => '',
+    };
+
+    return $signal . ' means ' . $order;
 });
